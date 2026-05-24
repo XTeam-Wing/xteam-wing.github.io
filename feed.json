@@ -1,0 +1,17 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "RedTeaming",
+    "home_page_url": "https://redteaming.net",
+    "feed_url": "https://redteaming.net/feed.json",
+    "description": "feedId:70012272542924800+userId:68920364883270656",
+    "items": [
+        {
+            "id": "https://redteaming.net/pages/ec8462/",
+            "url": "https://redteaming.net/pages/ec8462/",
+            "title": "Yakit实战:快速挖掘前后端分离网站的API接口漏洞",
+            "summary": "feedId:70012272542924800+userId:68920364883270656",
+            "image": "https://s2.loli.net/2024/07/28/1OCW3b587XVSism.png",
+            "date_modified": "2024-07-28T16:46:27.000Z"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://redteaming.net</id>
+    <title>RedTeaming</title>
+    <updated>2026-05-24T10:31:17.161Z</updated>
+    <generator>https://github.com/webmasterish/vuepress-plugin-feed</generator>
+    <link rel="alternate" href="https://redteaming.net"/>
+    <link rel="self" href="https://redteaming.net/feed.atom"/>
+    <subtitle>feedId:70012272542924800+userId:68920364883270656</subtitle>
+    <entry>
+        <title type="html"><![CDATA[Yakit实战:快速挖掘前后端分离网站的API接口漏洞]]></title>
+        <id>https://redteaming.net/pages/ec8462/</id>
+        <link href="https://redteaming.net/pages/ec8462/">
+        </link>
+        <updated>2024-07-28T16:46:27.000Z</updated>
+        <summary type="html"><![CDATA[feedId:70012272542924800+userId:68920364883270656]]></summary>
+    </entry>
+</feed>
